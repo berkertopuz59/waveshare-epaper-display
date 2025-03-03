@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 import sys
 import os
 import logging
@@ -12,13 +11,15 @@ if os.path.exists(libdir):
 
 configure_logging()
 
-# Dear future me: consider converting this to a WAVESHARE_VERSION variable instead if you ever intend to support more screen sizes.
+# Define thresholds
+red_threshold = 150  # Adjust based on your image
+black_threshold = 150  # Adjust based on your image
 
-waveshare_epd75_version = os.getenv("WAVESHARE_EPD75_VERSION", "2")
+waveshare_epd75_version = os.getenv("WAVESHARE_EPD75_VERSION", "2B")
 
-if (waveshare_epd75_version == "1"):
+if waveshare_epd75_version == "1":
     from waveshare_epd import epd7in5 as epd7in5
-elif (waveshare_epd75_version == "2B"):
+elif waveshare_epd75_version == "2B":
     from waveshare_epd import epd7in5b_V2 as epd7in5
 else:
     from waveshare_epd import epd7in5_V2 as epd7in5
@@ -37,11 +38,38 @@ try:
 
     logging.debug("Read image file: " + filename)
     Himage = Image.open(filename)
+
+    # Ensure the image is in RGB mode
+    if Himage.mode != 'RGB':
+        Himage = Himage.convert('RGB')
+
     logging.info("Display image file on screen")
 
     if waveshare_epd75_version == "2B":
-        Limage_Other = Image.new('1', (epd.height, epd.width), 255)  # 255: clear the frame
-        epd.display(epd.getbuffer(Himage), epd.getbuffer(Limage_Other))
+        # Handle red color for "B" version displays
+        Limage_Black = Image.new('1', (Himage.width, Himage.height), 255)  # Black channel
+        Limage_Red = Image.new('1', (Himage.width, Himage.height), 255)  # Red channel
+
+        # Convert the image to black and red components
+        for x in range(Himage.width):
+            for y in range(Himage.height):
+                pixel = Himage.getpixel((x, y))
+                r, g, b = pixel  # Extract the RGB components of the pixel
+
+                # Log pixel values for debugging
+                logging.debug(f"Pixel at ({x}, {y}): R={r}, G={g}, B={b}")
+
+                # Detect red shades (red is dominant)
+                if r > g + red_threshold and r > b + red_threshold:  # Red dominant
+                    Limage_Red.putpixel((x, y), 0)  # Set red in red channel
+                # Detect black shades (all channels are close to 0)
+                elif r <= black_threshold and g <= black_threshold and b <= black_threshold:
+                    Limage_Black.putpixel((x, y), 0)  # Set black in black channel
+                else:  # For all other colors (e.g., white or light colors)
+                    Limage_Black.putpixel((x, y), 255)  # Set white in black channel
+                    Limage_Red.putpixel((x, y), 255)    # Set white in red channel
+        
+        epd.display(epd.getbuffer(Limage_Black), epd.getbuffer(Limage_Red))
     else:
         epd.display(epd.getbuffer(Himage))
     epd.sleep()
