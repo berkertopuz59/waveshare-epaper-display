@@ -97,8 +97,8 @@ def main():
     
     # Font loading
     try:
-        font = ImageFont.truetype("/usr/share/fonts/truetype/DejaVuSans.ttf", 40)
-        attribution_font = ImageFont.truetype("/usr/share/fonts/truetype/DejaVuSans.ttf", 30)
+        font = ImageFont.truetype("/usr/share/fonts/truetype/NotoSans-Regulars.ttf", font_size)
+        attribution_font = ImageFont.truetype("/usr/share/fonts/truetype/NotoSans-Regular.ttf", font_size-10)
     except OSError as e:
         logging.error(f"Failed to load font: {e}. Using default font.")
         font = ImageFont.load_default()
