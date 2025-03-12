@@ -108,3 +108,6 @@ class SentenceClock:
     def export_as_png(self):
         self.image.save("sentence_clock.png")
         logging.info("Exported sentence_clock.png")
+
+if __name__ == "__main__":
+    app = SentenceClock()
