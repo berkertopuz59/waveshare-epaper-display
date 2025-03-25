@@ -1,0 +1,112 @@
+<svg width="800" height="480" xmlns="http://www.w3.org/2000/svg" version="1.1">
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="white"/>
+  <!-- Title -->
+  <text x="400" y="30" font-family="Noto Sans Display" font-weight="bold" font-size="24" fill="black" text-anchor="middle">Weather Report</text>
+  <!-- Column 1 -->
+  <g transform="translate(133, 50)">
+    <!-- Date and Day -->
+    <text x="0" y="0" font-family="Noto Sans Display" font-size="24" fill="red" text-anchor="middle">
+      <tspan x="0" dy="1.2em" font-weight="bold">{DATE1}</tspan>
+      <tspan x="0" dy="1.4em" font-weight="bold">{DAY1}</tspan>
+    </text>
+    <!-- Weather Icon -->
+    <svg x="-50" y="65" xmlns="http://www.w3.org/2000/svg">
+      <g id="{ICON_ID1}" transform="scale(3.8)">
+        <rect fill="none" width="24" height="24" />
+        <path fill-rule="evenodd" clip-rule="evenodd" d="{ICON1_PATH1}" />
+        <path d="{ICON1_PATH2}" />
+      </g>
+    </svg>
+    <!-- Weather Details -->
+    <text x="0" y="0" font-family="Noto Sans Display" font-size="20" fill="black" text-anchor="start">
+      <tspan x="-100" dy="8.5em" font-weight="bold">High:</tspan>
+      <tspan x="20" dy="0" fill="{HIGH1_COLOR}">{HIGH1}°C</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Low:</tspan>
+      <tspan x="20" dy="0" fill="{LOW1_COLOR}">{LOW1}°C</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">PoP%:</tspan>
+      <tspan x="20" dy="0" fill="{POP1_COLOR}">{POP1}%</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Wind / Gust:</tspan>
+      <tspan x="20" dy="0" fill="{WIND1_COLOR}">{WIND1} / {GUST1} km/h</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Humidity:</tspan>
+      <tspan x="20" dy="0" fill="{HUMIDITY1_COLOR}">{HUMIDITY1}%</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Air Quality:</tspan>
+      <tspan x="20" dy="0" fill="{AQ1_COLOR}">{AQ1}</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">CC%:</tspan>
+      <tspan x="20" dy="0" fill="{CC1_COLOR}">{CC1}%</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">UV Index:</tspan>
+      <tspan x="20" dy="0" fill="{UV1_COLOR}">{UV1}</tspan>
+    </text>
+  </g>
+  <!-- Column 2 -->
+  <g transform="translate(400, 50)">
+    <!-- Date and Day -->
+    <text x="0" y="0" font-family="Noto Sans Display" font-size="24" fill="red" text-anchor="middle">
+      <tspan x="0" dy="1.2em" font-weight="bold">{DATE2}</tspan>
+      <tspan x="0" dy="1.4em" font-weight="bold">{DAY2}</tspan>
+    </text>
+    <!-- Weather Icon -->
+    <svg x="-50" y="65" xmlns="http://www.w3.org/2000/svg">
+      <g id="{ICON_ID2}" transform="scale(3.8)">
+        <rect fill="none" width="24" height="24" />
+        <path fill-rule="evenodd" clip-rule="evenodd" d="{ICON2_PATH1}" />
+        <path d="{ICON2_PATH2}" />
+      </g>
+    </svg>
+    <!-- Weather Details -->
+    <text x="0" y="0" font-family="Noto Sans Display" font-size="20" fill="black" text-anchor="start">
+      <tspan x="-100" dy="8.5em" font-weight="bold">High:</tspan>
+      <tspan x="20" dy="0" fill="{HIGH2_COLOR}">{HIGH2}°C</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Low:</tspan>
+      <tspan x="20" dy="0" fill="{LOW2_COLOR}">{LOW2}°C</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">PoP%:</tspan>
+      <tspan x="20" dy="0" fill="{POP2_COLOR}">{POP2}%</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Wind / Gust:</tspan>
+      <tspan x="20" dy="0" fill="{WIND2_COLOR}">{WIND2} / {GUST2} km/h</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Humidity:</tspan>
+      <tspan x="20" dy="0" fill="{HUMIDITY2_COLOR}">{HUMIDITY2}%</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Air Quality:</tspan>
+      <tspan x="20" dy="0" fill="{AQ2_COLOR}">{AQ2}</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">CC%:</tspan>
+      <tspan x="20" dy="0" fill="{CC2_COLOR}">{CC2}%</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">UV Index:</tspan>
+      <tspan x="20" dy="0" fill="{UV2_COLOR}">{UV2}</tspan>
+    </text>
+  </g>
+  <!-- Column 3 -->
+  <g transform="translate(667, 50)">
+    <!-- Date and Day -->
+    <text x="0" y="0" font-family="Noto Sans Display" font-size="24" fill="red" text-anchor="middle">
+      <tspan x="0" dy="1.2em" font-weight="bold">{DATE3}</tspan>
+      <tspan x="0" dy="1.4em" font-weight="bold">{DAY3}</tspan>
+    </text>
+    <!-- Weather Icon -->
+    <svg x="-50" y="65" xmlns="http://www.w3.org/2000/svg">
+      <g id="{ICON_ID3}" transform="scale(3.8)">
+        <rect fill="none" width="24" height="24" />
+        <path fill-rule="evenodd" clip-rule="evenodd" d="{ICON3_PATH1}" />
+        <path d="{ICON3_PATH2}" />
+      </g>
+    </svg>
+    <!-- Weather Details -->
+    <text x="0" y="0" font-family="Noto Sans Display" font-size="20" fill="black" text-anchor="start">
+      <tspan x="-100" dy="8.5em" font-weight="bold">High:</tspan>
+      <tspan x="20" dy="0" fill="{HIGH3_COLOR}">{HIGH3}°C</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Low:</tspan>
+      <tspan x="20" dy="0" fill="{LOW3_COLOR}">{LOW3}°C</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">PoP%:</tspan>
+      <tspan x="20" dy="0" fill="{POP3_COLOR}">{POP3}%</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Wind / Gust:</tspan>
+      <tspan x="20" dy="0" fill="{WIND3_COLOR}">{WIND3} / {GUST3} km/h</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Humidity:</tspan>
+      <tspan x="20" dy="0" fill="{HUMIDITY3_COLOR}">{HUMIDITY3}%</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">Air Quality:</tspan>
+      <tspan x="20" dy="0" fill="{AQ3_COLOR}">{AQ3}</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">CC%:</tspan>
+      <tspan x="20" dy="0" fill="{CC3_COLOR}">{CC3}%</tspan>
+      <tspan x="-100" dy="1.5em" font-weight="bold">UV Index:</tspan>
+      <tspan x="20" dy="0" fill="{UV3_COLOR}">{UV3}</tspan>
+    </text>
+  </g>
+  <text x="40" y="460" font-family="Noto Sans Display" font-size="18" fill="black">{SUMMARY}</text>
+</svg>
