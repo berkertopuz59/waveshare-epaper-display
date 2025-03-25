@@ -42,10 +42,11 @@ def get_quote():
     return min(quotes, key=lambda x: len(x["full_quote"]))
 
 def clean_quote(quote, human_time):
-    """Clean up quote text and highlight the time."""
-    quote = re.sub(r"<br\s*/?>", " ", quote)
-    quote = re.sub(r"[‘’´]", "'", quote)
-    quote = re.sub(r'[“”]', '"', quote)
+    """Clean up quote text and highlight the time."""\
+    # replace newlines with spaces
+    quote = re.sub(r"<br\s*/?>", " ", quote)  # Handles <br>, <br/>, <br /> etc.
+    #quote = re.sub(r"[\u2018\u2019\u02BB\u02BC\u02BD\u0060]", "'", quote)  # Various single quotes
+    #quote = re.sub(r"[\u201C\u201D]", '"', quote)  # Various double quotes
     quote = quote.replace(u"\u00A0", " ")  # Non-breaking space
 
     # Replace the human-readable time in the quote with markers for styling
