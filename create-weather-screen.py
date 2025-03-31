@@ -35,7 +35,7 @@ response = responses[0]
 
 							
 # Current values. The order of variables needs to be the same as requested.
-# current = response.Current()
+current = response.Current()
 # current_temperature_2m = current.Variables(0).Value()
 # current_relative_humidity_2m = current.Variables(1).Value()
 # current_apparent_temperature = current.Variables(2).Value()
@@ -52,6 +52,7 @@ response = responses[0]
 # current_pressure_msl = current.Variables(13).Value()
 # current_surface_pressure = current.Variables(14).Value()
 
+time = current.Time()
 # print(f"Current time {current.Time()}")
 
 # print(f"Current temperature_2m {current_temperature_2m}")
@@ -299,20 +300,49 @@ def aggregate_hourly_data(hourly_df):
     }).reset_index()
     return daily_data
 
-def extract_path_d_attributes(svg_content):
-    """Extracts just the d attribute from all path elements"""
-    # This pattern matches the d attribute value, handling both quotes and spaces
-    pattern = r'<path[^>]*d\s*=\s*["\']([^"\']*)["\'][^>]*>'
-    return re.findall(pattern, svg_content)
-
-def load_icon_path_ds(icon_info):
-    """Loads SVG file and extracts just the path d attributes"""
+def load_icon(icon_info):
+    """Loads SVG file"""
     full_path = get_icon_path(icon_info)
 
     with open(full_path, 'r') as f:
         svg_content = f.read()
-        path_ds = extract_path_d_attributes(svg_content)
-        return path_ds
+        return svg_content
+    
+def extract_icon_group_content(icon_content):
+    """Extracts just the <g> element and its children from icon SVG"""
+    # Find the opening <g> tag with transform
+    start = icon_content.find('<g')
+    if start == -1:
+        return ""
+    
+    # Find matching closing tag
+    depth = 1
+    pos = start + 2
+    while depth > 0 and pos < len(icon_content):
+        if icon_content.startswith('</g>', pos):
+            depth -= 1
+            pos += 4
+        elif icon_content.startswith('<g', pos):
+            depth += 1
+            pos += 2
+        else:
+            pos += 1
+    
+    if depth == 0:
+        return icon_content[start:pos]
+    return ""
+    
+def adjust_icon_scale(icon_content, new_scale=3.8):
+    """Adjusts the scale in the transform attribute"""
+    # Simple regex replacement for the scale
+    return re.sub(
+        r'transform="[^"]*scale\(\s*[\d.]+\s*\)[^"]*"',
+        f'transform="scale({new_scale})"',
+        icon_content
+    )
+
+def format_timestamp(unix_timestamp):
+    return datetime.fromtimestamp(unix_timestamp).strftime('%d-%m-%Y %H:%M')
 
 # Function to replace placeholders in the SVG template
 def replace_placeholders(template, data, hourly_df):
@@ -350,21 +380,14 @@ def replace_placeholders(template, data, hourly_df):
         template = template.replace(f'{{UV{day_num}}}', f"{day_data['uv_index_max']:.1f}")
 
 
-        # Handle icon paths
+        # Handle icon - Simple version
         icon_info = get_weather_icon(day_data['weather_code'])
-        template = template.replace(f'{{ICON_ID{day_num}}}', icon_info)
-        
-        # Get just the path data (d attribute values)
-        path_ds = load_icon_path_ds(icon_info)
-        
-        # Replace each path data placeholder
-        for path_index, d_value in enumerate(path_ds, 1):
-            # Properly escape the path data for XML
-            escaped_d = d_value.replace('"', '&quot;')
-            template = template.replace(
-                f'{{ICON{day_num}_PATH{path_index}}}', 
-                escaped_d
-            )
+        icon_content = load_icon(icon_info)
+
+        group_content = extract_icon_group_content(icon_content)
+        adjusted_icon = adjust_icon_scale(group_content)
+        template = template.replace(f'{{ICON_CONTENT{day_num}}}', adjusted_icon)
+
 
         # Replace color placeholders
         template = template.replace(f'{{HIGH{day_num}_COLOR}}', get_color(day_data['temperature_2m_max'], 30))
@@ -376,6 +399,7 @@ def replace_placeholders(template, data, hourly_df):
         template = template.replace(f'{{CC{day_num}_COLOR}}', get_color(daily_agg_data['cloud_cover'].values[0], 70))
         template = template.replace(f'{{UV{day_num}_COLOR}}', get_color(day_data['uv_index_max'], 8))
 
+    template = template.replace(f'{{SUMMARY}}', f"Data is retrieved at {format_timestamp(time)}.") 
     return template
 
 # Read the SVG template from a file
