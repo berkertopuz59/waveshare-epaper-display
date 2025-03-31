@@ -12,11 +12,7 @@
     </text>
     <!-- Weather Icon -->
     <svg x="-50" y="65" xmlns="http://www.w3.org/2000/svg">
-      <g id="{ICON_ID1}" transform="scale(3.8)">
-        <rect fill="none" width="24" height="24" />
-        <path fill-rule="evenodd" clip-rule="evenodd" d="{ICON1_PATH1}" />
-        <path d="{ICON1_PATH2}" />
-      </g>
+      {ICON_CONTENT1}
     </svg>
     <!-- Weather Details -->
     <text x="0" y="0" font-family="Noto Sans Display" font-size="20" fill="black" text-anchor="start">
@@ -47,11 +43,7 @@
     </text>
     <!-- Weather Icon -->
     <svg x="-50" y="65" xmlns="http://www.w3.org/2000/svg">
-      <g id="{ICON_ID2}" transform="scale(3.8)">
-        <rect fill="none" width="24" height="24" />
-        <path fill-rule="evenodd" clip-rule="evenodd" d="{ICON2_PATH1}" />
-        <path d="{ICON2_PATH2}" />
-      </g>
+      {ICON_CONTENT2}
     </svg>
     <!-- Weather Details -->
     <text x="0" y="0" font-family="Noto Sans Display" font-size="20" fill="black" text-anchor="start">
@@ -82,11 +74,7 @@
     </text>
     <!-- Weather Icon -->
     <svg x="-50" y="65" xmlns="http://www.w3.org/2000/svg">
-      <g id="{ICON_ID3}" transform="scale(3.8)">
-        <rect fill="none" width="24" height="24" />
-        <path fill-rule="evenodd" clip-rule="evenodd" d="{ICON3_PATH1}" />
-        <path d="{ICON3_PATH2}" />
-      </g>
+      {ICON_CONTENT3}
     </svg>
     <!-- Weather Details -->
     <text x="0" y="0" font-family="Noto Sans Display" font-size="20" fill="black" text-anchor="start">
