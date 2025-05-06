@@ -232,8 +232,6 @@ def get_icon_path(icon_name):
 # Get the current date
 current_date = datetime.now().date()
 
-daily_dataframe[daily_dataframe['date'] >= current_date.strftime('%Y-%m-%d')]
-
 # Filter the daily dataframe to include only rows from the current date onward
 daily_dataframe = daily_dataframe[daily_dataframe['date'] >= current_date.strftime('%Y-%m-%d')]
 
